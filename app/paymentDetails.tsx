@@ -8,20 +8,25 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "expo-router";
 import { Entypo, FontAwesome5 } from "@expo/vector-icons";
-import { TamuContext } from "./context";
 import { getData } from "./api/api";
 import { useQuery } from "@tanstack/react-query";
+import { getTamuState } from "./store/tamu/tamu.selector";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "./store";
+import { fetchHotels } from "./store/hotel/hotel.action";
+import { getHotelState } from "./store/hotel/hotel.selector";
 
 const PaymentDetails = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [selectedRadio, setSelectedRadio] = useState("sendiri");
-  const { user } = useContext(TamuContext);
-  const { data } = useQuery({
-    queryKey: ["data"],
-    queryFn: getData,
-  });
+  const user = useSelector(getTamuState);
+  const data = useSelector(getHotelState);
+  useEffect(() => {
+    dispatch(fetchHotels());
+  }, []);
   return (
     <ScrollView>
       <View className="">
@@ -47,19 +52,15 @@ const PaymentDetails = () => {
               <Image
                 className="w-16 h-16 rounded-xl"
                 source={{
-                  uri: data?.chosen_hotel.data.get_chosen_hotel.chosen_hotel_detail
-                    .images[0].url,
+                  uri: data?.chosen_hotel_detail.images[0].url,
                 }}
               />
               <View className="ml-3 mt-1">
                 <Text className="font-bold text-[#335997] text-xs">
-                  {
-                    data?.chosen_hotel.data.get_chosen_hotel.chosen_hotel_params
-                      .hotel_name
-                  }
+                  {data?.chosen_hotel_params.hotel_name}
                 </Text>
                 <Text className=" text-zinc-400 text-xs">
-                  {data?.chosen_hotel.data.get_chosen_hotel.chosen_hotel_room.room_name}
+                  {data?.chosen_hotel_room.room_name}
                 </Text>
                 <Text className=" text-zinc-400 text-xs">
                   1 Kamar • Quadruple • 2 Tamu • 10 Malam

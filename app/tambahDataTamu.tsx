@@ -6,16 +6,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import RenderTamu from "./renderTamu";
 import uuid from "react-native-uuid";
-import { TamuContext } from "./context";
 import { useNavigation } from "expo-router";
+import { useDispatch, useSelector } from "react-redux";
+import { getTamuState } from "./store/tamu/tamu.selector";
+import { addTamu } from "./store/tamu/tamu.action";
+import { AppDispatch } from "./store";
 
 const TambahDataTamu = () => {
-  const { user, setUser } = useContext(TamuContext);
+  const dispatch: AppDispatch = useDispatch();
+  const user = useSelector(getTamuState);
   const [datas, setDatas] = useState(user);
   const navigation = useNavigation();
+
   const hapusTamu = (id: string) => {
     const newData = datas.filter((item: any) => item.id !== id);
     setDatas(newData);
@@ -29,8 +34,7 @@ const TambahDataTamu = () => {
     setDatas([...datas, newData]);
   };
   const tambahDataKeUser = () => {
-    const tempData = datas.filter((data) => data.name !== "");
-    setUser(tempData);
+    dispatch(addTamu(datas));
     navigation.goBack();
   };
   return (
@@ -72,50 +76,3 @@ const TambahDataTamu = () => {
 };
 
 export default TambahDataTamu;
-
-const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    height: 40,
-    padding: 5,
-    borderColor: "#d4d4d8",
-    borderRadius: 6,
-    color: "#335997",
-  },
-  dropdown: {
-    height: 50,
-    borderColor: "gray",
-    borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-  },
-  icon: {
-    marginRight: 5,
-  },
-  label: {
-    position: "absolute",
-    backgroundColor: "white",
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-    color: "#335997",
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-    color: "#335997",
-    fontWeight: "600",
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-});

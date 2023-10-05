@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "rn-test",
-    "slug": "rn-test",
+    "slug": "test",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -42,8 +42,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "eeafa579-bb56-4b12-8b52-8a0de20838ef"
+        "projectId": "ce259ff6-d266-4793-9b35-84c64b31d790"
       }
-    }
+    },
+    "owner": "renessdwir"
   }
 }

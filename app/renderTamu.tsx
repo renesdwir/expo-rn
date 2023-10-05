@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import React from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { Feather, MaterialIcons } from "@expo/vector-icons";
-const data = [
+const dataSalutation = [
   { label: "Tn.", value: "Tn." },
   { label: "Mr.", value: "Mr." },
   { label: "Ny.", value: "Ny." },
@@ -17,7 +17,7 @@ const RenderTamu = ({ dataUser, onDelete, setDatas }: any) => {
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
-          data={data}
+          data={dataSalutation}
           maxHeight={300}
           labelField="label"
           valueField="value"
