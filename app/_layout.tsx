@@ -1,10 +1,12 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
-import { View, useColorScheme, Text } from "react-native";
+import { useColorScheme } from "react-native";
+import { TamuContextProvider } from "./context";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -46,19 +48,45 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: "Homepage" }} />
-      <Stack.Screen
-        name="paymentDetails"
-        options={{
-          title: "Payment Details",
-          headerStyle: {
-            backgroundColor: "#335997",
-          },
-          headerTintColor: "#fff",
-          headerTitleAlign: "center",
-        }}
-      />
-    </Stack>
+    <TamuContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <Stack>
+          <Stack.Screen name="index" options={{ title: "Homepage" }} />
+          <Stack.Screen
+            name="paymentDetails"
+            options={{
+              title: "Payment Details",
+              headerStyle: {
+                backgroundColor: "#335997",
+              },
+              headerTintColor: "#fff",
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen
+            name="pembayaran"
+            options={{
+              title: "Pembayaran",
+              headerStyle: {
+                backgroundColor: "#335997",
+              },
+              headerTintColor: "#fff",
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen
+            name="tambahDataTamu"
+            options={{
+              title: "Tambah Data Tamu",
+              headerStyle: {
+                backgroundColor: "#335997",
+              },
+              headerTintColor: "#fff",
+              headerTitleAlign: "center",
+            }}
+          />
+        </Stack>
+      </QueryClientProvider>
+    </TamuContextProvider>
   );
 }
