@@ -11,8 +11,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { Link } from "expo-router";
 import { Entypo, FontAwesome5 } from "@expo/vector-icons";
-import { getData } from "./api/api";
-import { useQuery } from "@tanstack/react-query";
 import { getTamuState } from "./store/tamu/tamu.selector";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "./store";
